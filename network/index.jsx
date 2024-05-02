@@ -43,7 +43,7 @@ const SysInfo = () => {
                     <ul>
                         {systemInfo.networks.map((network, index) => (
                             <li key={index} style={{ marginBottom: '10px' }}>
-                                <strong style={{ color: 'white' }}>{network.interface_name}</strong>
+                                <strong style={{ color: 'black' }}>{network.interface_name}</strong>
                                 <br />
                                 Total Received: {formatBytes(network.total_received)} KB
                                 <br />
