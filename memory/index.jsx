@@ -3,7 +3,7 @@ import apis from "@deskulpt-test/apis";
 
 const SysInfo = () => {
     const [systemInfo, setSystemInfo] = React.useState(null);
-    const [opacity, setOpacity] = React.useState(0.7);
+    const [opacity, setOpacity] = React.useState(0.5);
 
     const increaseOpacity = () => {
         if (opacity < 1) {
@@ -46,15 +46,21 @@ const SysInfo = () => {
 
     return (
         <div className="container">
-            <div className="task-manager" style={{ background: `rgba(255, 255, 255, ${opacity})`, padding: '20px', borderRadius: '8px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
-                <div style={{ marginBottom: '10px' }}>
-                    <button onClick={increaseOpacity}>Increase Opacity</button>
-                    <button onClick={decreaseOpacity}>Decrease Opacity</button>
-                </div>
+            <div className="task-manager" style={{
+                background: `rgba(128, 128, 128, ${opacity})`,
+                padding: '20px',
+                color:'white',
+                borderRadius: '8px',
+                boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)'
+            }}>
+                {/*<div style={{marginBottom: '10px'}}>*/}
+                {/*    <button onClick={increaseOpacity}>Increase Opacity</button>*/}
+                {/*    <button onClick={decreaseOpacity}>Decrease Opacity</button>*/}
+                {/*</div>*/}
                 {systemInfo && (
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <h2 style={{ marginBottom: '20px', fontSize: '24px', color: '#333' }}>Memory Usage</h2>
-                        <div style={{ marginBottom: '10px' }}>
+                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                        <h2 style={{marginBottom: '20px', fontSize: '24px', color: 'white'}}>Memory Usage</h2>
+                        <div style={{marginBottom: '10px'}}>
                             <strong>Total Memory:</strong> {formatBytes(systemInfo.total_memory)}
                         </div>
                         <div>
@@ -68,5 +74,5 @@ const SysInfo = () => {
 };
 
 export default {
-    render: () => <SysInfo />,
+    render: () => <SysInfo/>,
 };

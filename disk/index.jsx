@@ -3,7 +3,7 @@ import apis from "@deskulpt-test/apis";
 
 const SysInfo = () => {
     const [systemInfo, setSystemInfo] = React.useState(null);
-    const [opacity, setOpacity] = React.useState(1);
+    const [opacity, setOpacity] = React.useState(0.5);
 
     React.useEffect(() => {
         const intervalId = setInterval(fetchSystemInfo, 1000);
@@ -45,21 +45,29 @@ const SysInfo = () => {
     }
 
     return (
-        <div className="task-manager" style={{ background: `rgba(255, 255, 255, ${opacity})`, fontFamily: 'Segoe UI', fontSize: '16px', padding: '20px', borderRadius: '8px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}>
-            <div style={{ marginBottom: '10px' }}>
-                <button onClick={increaseOpacity}>Increase Opacity</button>
-                <button onClick={decreaseOpacity}>Decrease Opacity</button>
-            </div>
+        <div className="task-manager" style={{
+            background: `rgba(128, 128, 128, ${opacity})`,
+            fontFamily: 'Segoe UI',
+            fontSize: '16px',
+            padding: '20px',
+            borderRadius: '8px',
+            color: 'white',
+            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)'
+        }}>
+            {/*<div style={{ marginBottom: '10px' }}>*/}
+            {/*    <button onClick={increaseOpacity}>Increase Opacity</button>*/}
+            {/*    <button onClick={decreaseOpacity}>Decrease Opacity</button>*/}
+            {/*</div>*/}
             {systemInfo && (
                 <div>
-                    <h2 style={{ marginBottom: '20px', color: '#333' }}>Disk Usage</h2>
+                    {/*<h2 style={{ marginBottom: '20px', color: '#333' }}>Disk Usage</h2>*/}
                     <ul>
                         {systemInfo.disks.map((disk, index) => (
-                            <li key={index} style={{ marginBottom: '10px' }}>
-                                <strong style={{ color: '#0078d4' }}>{disk.name}</strong>
-                                <br />
+                            <li key={index} style={{marginBottom: '10px'}}>
+                                <strong style={{color: 'white'}}>{disk.name}</strong>
+                                <br/>
                                 Available Space: {formatBytes(disk.available_space)}
-                                <br />
+                                <br/>
                                 Total Space: {formatBytes(disk.total_space)}
                             </li>
                         ))}
@@ -71,5 +79,5 @@ const SysInfo = () => {
 };
 
 export default {
-    render: () => <SysInfo />,
+    render: () => <SysInfo/>,
 };

@@ -27,7 +27,18 @@ const SysInfo = () => {
         try {
             let data = await apis.sys.getSystemInfo();
             setBrand(data.cpu_info[0].brand);
-            setSystemInfo(data);
+            let tempUseAverage = 0;
+            data.cpu_info.forEach((cpu) => {
+                tempUseAverage += cpu.total_cpu_usage;
+            });
+
+            let obj = {
+                cpu_info: [{
+                    total_cpu_usage: tempUseAverage / data.cpu_info.length
+                }]
+            };
+
+            setSystemInfo(obj);
         } catch (error) {
             console.error('Error fetching system info:', error);
         }
@@ -37,30 +48,31 @@ const SysInfo = () => {
         return <div>Loading...</div>;
     }
 
-    function formatBytes(bytes) {
-        if (bytes === 0) return '0 Bytes';
-        const k = 1024;
-        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-    }
-
     return (
-        <div className="task-manager" style={{ background: `rgba(255, 255, 255, ${opacity})`, fontFamily: 'Segoe UI', fontSize: '16px', padding: '20px', borderRadius: '10px' }}>
-            <div style={{ marginBottom: '10px' }}>
-                <button onClick={increaseOpacity}>Increase Opacity</button>
-                <button onClick={decreaseOpacity}>Decrease Opacity</button>
-            </div>
+        <div className="task-manager" style={{
+            background: `rgba(128, 128, 128, ${opacity})`,
+            fontFamily: 'Segoe UI',
+            fontSize: '16px',
+            padding: '20px',
+            color: 'white',
+            borderRadius: '10px'
+        }}>
+            {/*<div style={{marginBottom: '10px'}}>*/}
+            {/*    <button onClick={increaseOpacity}>Increase Opacity</button>*/}
+            {/*    <button onClick={decreaseOpacity}>Decrease Opacity</button>*/}
+            {/*</div>*/}
             {systemInfo && (
                 <div>
-                    <h2 style={{ color: '#0078d4' }}>CPU Usage</h2>
-                    <div style={{ marginBottom: '10px' }}>
-                        <strong style={{ color: '#0078d4' }}>CPU Brand:</strong> {brand}
-                    </div>
                     <ul>
                         {systemInfo.cpu_info.map((cpu, index) => (
-                            <li key={index} style={{ marginBottom: '5px' }}>
-                                <strong style={{ color: '#0078d4' }}>CPU {index + 1}:</strong> {cpu.total_cpu_usage.toFixed(2)}%
+                            <li key={index} style={{marginBottom: '5px'}}>
+                                <strong style={{color: 'white'}}>CPU:</strong>
+                                <progress
+                                    style={{background: `linear-gradient(to right, 
+                                        green ${cpu.total_cpu_usage - 20}%, 
+                                        red ${cpu.total_cpu_usage}%)`}}
+                                    value={cpu.total_cpu_usage} max="100"></progress>
+                                {cpu.total_cpu_usage.toFixed(2)}%
                             </li>
                         ))}
                     </ul>
@@ -71,5 +83,5 @@ const SysInfo = () => {
 };
 
 export default {
-    render: () => <SysInfo />,
+    render: () => <SysInfo/>,
 };
