@@ -1,0 +1,5 @@
+{
+	"name": "counter",
+	"entry": "src/index.tsx",
+	"ignore": false
+}

@@ -1,0 +1,5 @@
+{
+	"name": "sysinfo",
+	"entry": "src/index.tsx",
+	"ignore": false
+}

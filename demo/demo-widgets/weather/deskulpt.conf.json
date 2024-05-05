@@ -1,0 +1,5 @@
+{
+	"name": "weather",
+	"entry": "src/index.jsx",
+	"ignore": false
+}
